@@ -1,0 +1,28 @@
+{
+  "name": "gouder-haithem-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "geist": "^1.7.1",
+    "gsap": "3.12.5",
+    "lenis": "1.1.13",
+    "next": "15.5.18",
+    "react": "^19",
+    "react-dom": "^19",
+    "resend": "^6.12.4",
+    "three": "0.160.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.160.0",
+    "typescript": "^5"
+  }
+}
