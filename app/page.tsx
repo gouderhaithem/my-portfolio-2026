@@ -1,4 +1,5 @@
 import PortfolioInit from "@/components/PortfolioInit";
+import ChatWidget from "@/components/ChatWidget";
 
 export default function Home() {
   return (
@@ -1272,6 +1273,9 @@ export default function Home() {
           <div className="bar" />
         </div>
       </div>
+
+      {/* AI chatbot */}
+      <ChatWidget />
 
       {/* Client-side Three.js / GSAP / Lenis init */}
       <PortfolioInit />
