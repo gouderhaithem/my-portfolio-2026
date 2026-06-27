@@ -6,23 +6,41 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.10.0",
     "geist": "^1.7.1",
     "gsap": "3.12.5",
+    "jose": "^6.2.3",
     "lenis": "1.1.13",
     "next": "15.5.18",
     "react": "^19",
     "react-dom": "^19",
     "resend": "^6.12.4",
-    "three": "0.160.0"
+    "sharp": "^0.35.2",
+    "three": "0.160.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.160.0",
+    "prisma": "^6.19.3",
+    "tsx": "^4.22.4",
     "typescript": "^5"
   }
 }

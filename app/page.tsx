@@ -1,7 +1,10 @@
 import PortfolioInit from "@/components/PortfolioInit";
 import ChatWidget from "@/components/ChatWidget";
+import ServiceIcon from "@/components/ServiceIcon";
+import { getFeaturedServices } from "@/lib/services";
 
-export default function Home() {
+export default async function Home() {
+  const featuredServices = await getFeaturedServices();
   return (
     <>
       {/* Visually hidden H1 for SEO/accessibility */}
@@ -43,9 +46,10 @@ export default function Home() {
             </a>
           </li>
           <li>
-            <a href="#work" data-link="">
-              Work
-            </a>
+            <a href="/projects">Projects</a>
+          </li>
+          <li>
+            <a href="/blog">Blog</a>
           </li>
           <li>
             <a href="#skills" data-link="">
@@ -170,115 +174,33 @@ export default function Home() {
             </div>
             <div className="note">
               Engagements run 4&ndash;12 weeks. Fixed scope, weekly demos,
-              source on day one.
+              source on day one.{" "}
+              <a href="/services" style={{ color: "var(--accent)" }}>
+                See all services &rarr;
+              </a>
             </div>
           </div>
 
           <div className="cards">
-            <div className="service reveal">
-              <div className="top">
-                <span className="num">S &middot; 01</span>
-                <div className="icon" aria-hidden="true">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.4"
-                  >
-                    <rect x="3" y="4" width="18" height="14" rx="1.5" />
-                    <path d="M3 8h18" />
-                    <circle cx="6" cy="6" r="0.6" fill="currentColor" />
-                    <circle cx="8.5" cy="6" r="0.6" fill="currentColor" />
-                    <path d="M9 21h6" />
-                    <path d="M12 18v3" />
-                  </svg>
+            {featuredServices.map((service) => (
+              <div className="service reveal" key={service.slug}>
+                <div className="top">
+                  <span className="num">{service.num}</span>
+                  <div className="icon" aria-hidden="true">
+                    <ServiceIcon name={service.icon} />
+                  </div>
                 </div>
+                <h3>
+                  {service.title} <span className="it">{service.titleAccent}</span>
+                </h3>
+                <p>{service.summary}</p>
+                <ul>
+                  {service.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
               </div>
-              <h3>
-                Websites <span className="it">&amp; web apps</span>
-              </h3>
-              <p>
-                Marketing sites, product surfaces, and dashboards that load fast
-                and look considered. Built on a modern stack with motion, type,
-                and content that earn their place.
-              </p>
-              <ul>
-                <li>Next.js &middot; Astro &middot; React</li>
-                <li>Headless CMS &middot; i18n</li>
-                <li>SEO &middot; Core Web Vitals</li>
-                <li>Hosting &amp; CI/CD setup</li>
-              </ul>
-            </div>
-
-            <div className="service reveal">
-              <div className="top">
-                <span className="num">S &middot; 02</span>
-                <div className="icon" aria-hidden="true">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.4"
-                  >
-                    <circle cx="9" cy="8" r="3" />
-                    <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
-                    <circle cx="17" cy="7" r="2" />
-                    <path d="M21 14c0-2.2-1.8-4-4-4" />
-                  </svg>
-                </div>
-              </div>
-              <h3>
-                CRM <span className="it">platforms</span>
-              </h3>
-              <p>
-                Custom customer-relationship systems built around your actual
-                sales motion &mdash; pipelines, automations, and reporting that
-                beat the off-the-shelf compromise.
-              </p>
-              <ul>
-                <li>Lead pipelines &amp; deal stages</li>
-                <li>Email &amp; WhatsApp automations</li>
-                <li>Role-based access &middot; audit log</li>
-                <li>Integrations: Stripe, Slack, Gmail</li>
-              </ul>
-            </div>
-
-            <div className="service reveal">
-              <div className="top">
-                <span className="num">S &middot; 03</span>
-                <div className="icon" aria-hidden="true">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.4"
-                  >
-                    <rect x="3" y="3" width="7" height="7" rx="1" />
-                    <rect x="14" y="3" width="7" height="7" rx="1" />
-                    <rect x="3" y="14" width="7" height="7" rx="1" />
-                    <rect x="14" y="14" width="7" height="7" rx="1" />
-                    <path d="M10 6.5h4" />
-                    <path d="M17.5 10v4" />
-                    <path d="M10 17.5h4" />
-                    <path d="M6.5 10v4" />
-                  </svg>
-                </div>
-              </div>
-              <h3>
-                ERP <span className="it">systems</span>
-              </h3>
-              <p>
-                End-to-end operations software &mdash; inventory, accounting,
-                HR, and manufacturing modules that share one source of truth
-                instead of fighting six spreadsheets.
-              </p>
-              <ul>
-                <li>Inventory &middot; Procurement &middot; Sales</li>
-                <li>Accounting &middot; Invoicing &middot; Payroll</li>
-                <li>Multi-warehouse &middot; Multi-currency</li>
-                <li>Reports, KPIs &amp; forecasting</li>
-              </ul>
-            </div>
+            ))}
           </div>
         </section>
 
@@ -292,13 +214,16 @@ export default function Home() {
               </h2>
             </div>
             <div className="note">
-              A fuller dossier on request. Most recent work is under NDA.
+              A fuller dossier on request.{" "}
+              <a href="/projects" style={{ color: "var(--accent)" }}>
+                View all projects &rarr;
+              </a>
             </div>
           </div>
 
           <div className="projects">
             {/* Project 001 */}
-            <a className="project reveal" href="#" data-link="">
+            <a className="project reveal" href="/projects">
               <div className="num">001</div>
               <div className="body">
                 <h3>
@@ -472,7 +397,7 @@ export default function Home() {
             </a>
 
             {/* Project 002 */}
-            <a className="project reveal" href="#" data-link="">
+            <a className="project reveal" href="/projects">
               <div className="num">002</div>
               <div className="body">
                 <h3>
@@ -676,7 +601,7 @@ export default function Home() {
             </a>
 
             {/* Project 003 */}
-            <a className="project reveal" href="#" data-link="">
+            <a className="project reveal" href="/projects">
               <div className="num">003</div>
               <div className="body">
                 <h3>

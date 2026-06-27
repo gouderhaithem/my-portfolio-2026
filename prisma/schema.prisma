@@ -1,0 +1,100 @@
+// Prisma schema for the portfolio.
+// Reads happen in Server Components via lib/*.ts; writes happen in the
+// (future) /admin panel via Server Actions. JSONB columns (sections, results)
+// mirror the ContentSection[] / arrays in lib/types.ts 1:1.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // If DATABASE_URL points at a connection pooler (e.g. Supabase/Neon
+  // pgbouncer), add: directUrl = env("DIRECT_URL") and set DIRECT_URL to the
+  // direct, non-pooled connection string for migrations.
+}
+
+model Project {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  tagline   String
+  category  String
+  year      String
+  cover     String[] // [from, to] gradient colors
+  image     String? // Cloudinary secure_url
+  imageId   String? // Cloudinary public_id (for deletion/transforms)
+  tags      String[]
+  featured  Boolean  @default(false)
+  client    String
+  role      String
+  timeline  String
+  stack     String[]
+  liveUrl   String?
+  repoUrl   String?
+  summary   String
+  sections  Json // ContentSection[]
+  results   Json // { label, value }[]
+  gallery   String[]
+  status    String   @default("draft") // "draft" | "published"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+  @@index([featured])
+  @@index([status])
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  category    String
+  date        String // ISO date string, e.g. "2026-05-18"
+  readingTime String
+  image       String? // Cloudinary secure_url
+  imageId     String? // Cloudinary public_id
+  tags        String[]
+  featured    Boolean  @default(false)
+  authorName  String
+  authorRole  String
+  sections    Json // ContentSection[]
+  status      String   @default("draft") // "draft" | "published"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([featured])
+  @@index([status])
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  num         String
+  title       String
+  titleAccent String
+  icon        String // ServiceIconName
+  summary     String
+  features    String[]
+  featured    Boolean  @default(false)
+  order       Int      @default(0)
+  status      String   @default("draft") // "draft" | "published"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+}
+
+// Admin user for the /admin panel (Auth.js Credentials provider).
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  role         String   @default("admin")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

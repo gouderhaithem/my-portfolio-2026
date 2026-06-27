@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7be8a4"/>
+      <stop offset="1" stop-color="#1c8c4e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.72" cy="0.18" r="0.9">
+      <stop offset="0" stop-color="#7be8a4" stop-opacity="0.45"/>
+      <stop offset="0.55" stop-color="#1c8c4e" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#0a0a0f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="675" fill="#0a0a0f"/>
+  <rect width="1200" height="675" fill="url(#glow)"/>
+  <g stroke="#f5f5f7" stroke-opacity="0.05">
+    <path d="M0 95 H1200"/><path d="M0 190 H1200"/><path d="M0 285 H1200"/><path d="M0 380 H1200"/><path d="M0 475 H1200"/><path d="M0 570 H1200"/><path d="M0 665 H1200"/>
+    <path d="M120 0 V675"/><path d="M240 0 V675"/><path d="M360 0 V675"/><path d="M480 0 V675"/><path d="M600 0 V675"/><path d="M720 0 V675"/><path d="M840 0 V675"/><path d="M960 0 V675"/><path d="M1080 0 V675"/>
+  </g>
+  <path d="M0 380 C 240 280, 480 480, 720 360 S 1200 280, 1200 360 V 675 H 0 Z" fill="url(#g)" opacity="0.5"/><path d="M0 430 C 280 340, 520 520, 760 410 S 1200 340, 1200 420 V 675 H 0 Z" fill="#7be8a4" opacity="0.18"/>
+  <text x="120" y="120" fill="#a5a5af" font-family="ui-monospace, SFMono-Regular, monospace" font-size="20" letter-spacing="5" style="text-transform:uppercase">Website · 2024</text>
+  <text x="118" y="585" fill="#f5f5f7" font-family="Georgia, 'Times New Roman', serif" font-size="120" font-style="italic">Lumen</text>
+  <text x="1080" y="640" text-anchor="end" fill="#5a5a68" font-family="ui-monospace, monospace" font-size="16" letter-spacing="3">G.H. · lumen-marketing-site</text>
+</svg>
