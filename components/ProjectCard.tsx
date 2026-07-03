@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import type { ProjectSummary } from '@/lib/types'
 import styles from './subpages.module.css'
 

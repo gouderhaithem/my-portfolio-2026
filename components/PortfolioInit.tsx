@@ -1,9 +1,15 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { useTranslations } from 'next-intl'
 
 export default function PortfolioInit() {
   const initialized = useRef(false)
+  const t = useTranslations('contactForm')
+  // The init effect runs once on mount; keep the latest t reachable from its
+  // closures without re-running the whole setup.
+  const tRef = useRef(t)
+  tRef.current = t
 
   useEffect(() => {
     if (initialized.current) return
@@ -189,15 +195,13 @@ export default function PortfolioInit() {
         const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
         if (!name || !emailOk || !type || !msg) {
           formStatus.classList.add('err')
-          formStatus.textContent = !emailOk
-            ? 'Please enter a valid email address.'
-            : 'Please fill in name, project type, and message.'
+          formStatus.textContent = !emailOk ? tRef.current('errorEmail') : tRef.current('errorFields')
           return
         }
         const btn = form.querySelector('.send-btn') as HTMLButtonElement
         const orig = btn.innerHTML
         btn.disabled = true
-        btn.innerHTML = '<span>Sending…</span>'
+        btn.innerHTML = `<span>${tRef.current('sending')}</span>`
         fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -205,7 +209,7 @@ export default function PortfolioInit() {
         })
           .then((res) => res.json())
           .then(() => {
-            btn.innerHTML = '<span>Message sent</span><span class="arr">✓</span>'
+            btn.innerHTML = `<span>${tRef.current('sent')}</span><span class="arr">✓</span>`
             form.reset()
             $$('.dd').forEach((dd) => {
               dd.classList.add('empty')
@@ -214,14 +218,14 @@ export default function PortfolioInit() {
               if (v) v.textContent = (v as HTMLElement).dataset.placeholder ?? ''
               dd.querySelectorAll('li').forEach((o) => o.classList.remove('selected'))
             })
-            showToast('Message sent', "I'll reply within 12 hours · NDA on request")
+            showToast(tRef.current('toastSentTitle'), tRef.current('toastSentSub'))
             setTimeout(() => {
               btn.disabled = false
               btn.innerHTML = orig
             }, 4000)
           })
           .catch(() => {
-            showToast('Something went wrong', 'Please try again or email directly', true)
+            showToast(tRef.current('toastErrorTitle'), tRef.current('toastErrorSub'), true)
             btn.disabled = false
             btn.innerHTML = orig
           })
@@ -1399,7 +1403,12 @@ export default function PortfolioInit() {
         const veil = document.getElementById('veil')
         if (veil) {
           veil.classList.add('gone')
-          setTimeout(() => veil.remove(), 900)
+          // Hide instead of removing: #veil is a React-rendered node, and
+          // detaching it from the DOM makes React's unmount removeChild throw
+          // (NotFoundError) when navigating away from the page.
+          setTimeout(() => {
+            veil.style.display = 'none'
+          }, 900)
         }
         ScrollTrigger.refresh()
       }, 600)

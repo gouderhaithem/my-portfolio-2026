@@ -1,15 +1,17 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import SiteChrome from '@/components/SiteChrome'
 import ContentSections from '@/components/ContentSections'
 import PostListRow from '@/components/PostListRow'
+import { Link } from '@/i18n/navigation'
 import { getPostBySlug, getPostSlugs, getRelatedPosts } from '@/lib/blog'
 import { formatDate } from '@/lib/format'
+import { localeAlternates, localeUrl } from '@/lib/seo'
 import styles from '@/components/subpages.module.css'
 
 interface PageProps {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string; slug: string }>
 }
 
 export async function generateStaticParams() {
@@ -18,14 +20,20 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params
+  const { locale, slug } = await params
   const post = await getPostBySlug(slug)
-  if (!post) return { title: 'Post not found' }
+  if (!post) {
+    const t = await getTranslations({ locale, namespace: 'blogPage' })
+    return { title: t('notFound') }
+  }
 
   return {
     title: post.title,
     description: post.excerpt,
-    alternates: { canonical: `https://gouderhaithem.com/blog/${post.slug}` },
+    alternates: {
+      canonical: localeUrl(locale, `/blog/${post.slug}`),
+      languages: localeAlternates(`/blog/${post.slug}`),
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -38,10 +46,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BlogDetailPage({ params }: PageProps) {
-  const { slug } = await params
+  const { locale, slug } = await params
+  setRequestLocale(locale)
   const post = await getPostBySlug(slug)
   if (!post) notFound()
 
+  const t = await getTranslations('blogPage')
   const related = await getRelatedPosts(slug)
 
   const initials = post.author.name
@@ -56,7 +66,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
       <div className={`${styles.container} ${styles.containerNarrow}`}>
         <Link href="/blog" className={styles.back}>
           <span className="arr">&larr;</span>
-          <span>All posts</span>
+          <span>{t('back')}</span>
         </Link>
 
         <header className={styles.detailHead}>
@@ -89,8 +99,8 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
         {related.length > 0 && (
           <div className={styles.related}>
-            <span className="eyebrow">Keep reading</span>
-            <h2 className={styles.relatedTitle}>Related posts</h2>
+            <span className="eyebrow">{t('keepReading')}</span>
+            <h2 className={styles.relatedTitle}>{t('relatedTitle')}</h2>
             <div className={styles.postList}>
               {related.map((item) => (
                 <PostListRow key={item.slug} post={item} />

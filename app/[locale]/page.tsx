@@ -1,16 +1,36 @@
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import PortfolioInit from "@/components/PortfolioInit";
 import ChatWidget from "@/components/ChatWidget";
 import ServiceIcon from "@/components/ServiceIcon";
+import SocialLinks from "@/components/SocialLinks";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
+import { Link } from "@/i18n/navigation";
 import { getFeaturedServices } from "@/lib/services";
 
-export default async function Home() {
+// Tag handlers for t.rich() — match the <b>/<i>/<br> markup in messages/*.json.
+const rich = {
+  b: (chunks: React.ReactNode) => <b>{chunks}</b>,
+  i: (chunks: React.ReactNode) => <span className="italic">{chunks}</span>,
+  br: () => <br />,
+};
+
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const featuredServices = await getFeaturedServices();
+  const t = await getTranslations("home");
+  const tNav = await getTranslations("nav");
+  const tForm = await getTranslations("contactForm");
+  const tFooter = await getTranslations("footer");
+  const tContact = await getTranslations("contactPage");
   return (
     <>
       {/* Visually hidden H1 for SEO/accessibility */}
-      <h1 className="sr-only">
-        Gouder Haithem &mdash; Software Engineer in Algeria
-      </h1>
+      <h1 className="sr-only">{t("h1")}</h1>
 
       {/* Background layers */}
       <div id="bg" />
@@ -37,35 +57,36 @@ export default async function Home() {
         <ul id="nav-list">
           <li>
             <a href="#about" data-link="">
-              About
+              {tNav("about")}
             </a>
           </li>
           <li>
             <a href="#services" data-link="">
-              Services
+              {tNav("services")}
             </a>
           </li>
           <li>
-            <a href="/projects">Projects</a>
+            <Link href="/projects">{tNav("projects")}</Link>
           </li>
           <li>
-            <a href="/blog">Blog</a>
+            <Link href="/blog">{tNav("blog")}</Link>
           </li>
           <li>
             <a href="#skills" data-link="">
-              Skills
+              {tNav("skills")}
             </a>
           </li>
           <li>
             <a href="#contact" data-link="">
-              Contact
+              {tNav("contact")}
             </a>
           </li>
         </ul>
         <div className="right">
-          <span className="status">Available &middot; Q3 2026</span>
+          <LocaleSwitcher />
+          <span className="status">{tNav("status")}</span>
         </div>
-        <button className="burger" id="burger" aria-label="Menu">
+        <button className="burger" id="burger" aria-label={tNav("menu")}>
           <span />
           <span />
           <span />
@@ -79,7 +100,7 @@ export default async function Home() {
             <span>
               N 36.7&deg;&nbsp; E 3.0&deg;&nbsp; &middot;&nbsp; Algiers
             </span>
-            <span>Portfolio / vol. iv</span>
+            <span>{t("hero.meta")}</span>
           </div>
 
           <div id="hero-title" className="display" aria-hidden="true">
@@ -103,24 +124,20 @@ export default async function Home() {
             </span>
           </div>
 
-          <div className="role">
-            <b>Software Engineer.</b>&nbsp;&nbsp;Building websites, CRMs, and
-            ERP systems that feel inevitable &mdash; considered interfaces on
-            top of solid foundations.
-          </div>
+          <div className="role">{t.rich("hero.role", rich)}</div>
 
           <div className="hero-ctas">
             <a href="#contact" data-link="" className="btn-pill primary">
-              <span>Start a project</span>
+              <span>{t("hero.ctaStart")}</span>
               <span className="arr">&rarr;</span>
             </a>
             <a href="#services" data-link="" className="btn-pill ghost">
-              <span>See services</span>
+              <span>{t("hero.ctaServices")}</span>
             </a>
           </div>
 
           <div className="scroll-cue">
-            <span>Scroll</span>
+            <span>{t("hero.scroll")}</span>
             <span className="line" />
           </div>
         </section>
@@ -129,33 +146,22 @@ export default async function Home() {
         <section id="about">
           <div className="grid">
             <div className="copy reveal">
-              <span className="eyebrow">01 &mdash; About</span>
-              <h2 className="display">
-                Four years of <span className="italic">considered</span>
-                <br />
-                software work.
-              </h2>
-              <p className="lead">
-                I&apos;m a <b>software engineer</b> from Algiers building the
-                products that companies actually run on &mdash; marketing sites,
-                internal CRMs, and full ERP platforms.
-              </p>
-              <p className="lead">
-                Most of my work lives in a terminal. The rest tries very hard to
-                look like it doesn&apos;t, which is where this site comes in.
-              </p>
+              <span className="eyebrow">{t("about.eyebrow")}</span>
+              <h2 className="display">{t.rich("about.title", rich)}</h2>
+              <p className="lead">{t.rich("about.lead1", rich)}</p>
+              <p className="lead">{t.rich("about.lead2", rich)}</p>
               <div className="stats">
                 <div className="stat">
-                  <div className="n">4+</div>
-                  <div className="l">years building</div>
+                  <div className="n">{t("about.stat1n")}</div>
+                  <div className="l">{t("about.stat1l")}</div>
                 </div>
                 <div className="stat">
-                  <div className="n">Web &middot; CRM &middot; ERP</div>
-                  <div className="l">focus areas</div>
+                  <div className="n">{t("about.stat2n")}</div>
+                  <div className="l">{t("about.stat2l")}</div>
                 </div>
                 <div className="stat">
-                  <div className="n">Algiers</div>
-                  <div className="l">based &middot; remote</div>
+                  <div className="n">{t("about.stat3n")}</div>
+                  <div className="l">{t("about.stat3l")}</div>
                 </div>
               </div>
             </div>
@@ -167,17 +173,14 @@ export default async function Home() {
         <section id="services">
           <div className="head reveal">
             <div>
-              <span className="eyebrow">02 &mdash; Services</span>
-              <h2 className="display">
-                What I <span className="italic">build</span>.
-              </h2>
+              <span className="eyebrow">{t("services.eyebrow")}</span>
+              <h2 className="display">{t.rich("services.title", rich)}</h2>
             </div>
             <div className="note">
-              Engagements run 4&ndash;12 weeks. Fixed scope, weekly demos,
-              source on day one.{" "}
-              <a href="/services" style={{ color: "var(--accent)" }}>
-                See all services &rarr;
-              </a>
+              {t("services.note")}{" "}
+              <Link href="/services" style={{ color: "var(--accent)" }}>
+                {t("services.seeAll")}
+              </Link>
             </div>
           </div>
 
@@ -208,34 +211,28 @@ export default async function Home() {
         <section id="work">
           <div className="head reveal">
             <div>
-              <span className="eyebrow">03 &mdash; Selected Work</span>
-              <h2 className="display">
-                Three things I <span className="italic">stand behind</span>.
-              </h2>
+              <span className="eyebrow">{t("work.eyebrow")}</span>
+              <h2 className="display">{t.rich("work.title", rich)}</h2>
             </div>
             <div className="note">
-              A fuller dossier on request.{" "}
-              <a href="/projects" style={{ color: "var(--accent)" }}>
-                View all projects &rarr;
-              </a>
+              {t("work.note")}{" "}
+              <Link href="/projects" style={{ color: "var(--accent)" }}>
+                {t("work.viewAll")}
+              </Link>
             </div>
           </div>
 
           <div className="projects">
             {/* Project 001 */}
-            <a className="project reveal" href="/projects">
+            <Link className="project reveal" href="/projects">
               <div className="num">001</div>
               <div className="body">
                 <h3>
-                  Halcyon <span className="it">&mdash; query engine</span>
+                  {t("work.p1title")} <span className="it">{t("work.p1accent")}</span>
                 </h3>
                 <div className="meta">
-                  Distributed analytical engine for a 4 PB warehouse. Pushes
-                  predicates into Parquet at the SSD level; rewrites plans
-                  across a 64-node cluster.
-                  <span className="outcome">
-                    12&times; faster &middot; 600+ daily users
-                  </span>
+                  {t("work.p1meta")}
+                  <span className="outcome">{t("work.p1outcome")}</span>
                 </div>
               </div>
               <div className="preview" aria-hidden="true">
@@ -394,20 +391,18 @@ export default async function Home() {
                 <span>Postgres</span>
                 <span>K8s</span>
               </div>
-            </a>
+            </Link>
 
             {/* Project 002 */}
-            <a className="project reveal" href="/projects">
+            <Link className="project reveal" href="/projects">
               <div className="num">002</div>
               <div className="body">
                 <h3>
-                  Driftboard <span className="it">&mdash; realtime canvas</span>
+                  {t("work.p2title")} <span className="it">{t("work.p2accent")}</span>
                 </h3>
                 <div className="meta">
-                  A multiplayer design surface &mdash; vector, raster, and 3D
-                  primitives sharing one Yjs document. WebGL render pipeline
-                  that holds 60 fps with 10k objects on a MacBook Air.
-                  <span className="outcome">Acquired &middot; 2024</span>
+                  {t("work.p2meta")}
+                  <span className="outcome">{t("work.p2outcome")}</span>
                 </div>
               </div>
               <div className="preview" aria-hidden="true">
@@ -598,20 +593,18 @@ export default async function Home() {
                 <span>Yjs</span>
                 <span>Workers</span>
               </div>
-            </a>
+            </Link>
 
             {/* Project 003 */}
-            <a className="project reveal" href="/projects">
+            <Link className="project reveal" href="/projects">
               <div className="num">003</div>
               <div className="body">
                 <h3>
-                  Loom <span className="it">&mdash; compiler toolkit</span>
+                  {t("work.p3title")} <span className="it">{t("work.p3accent")}</span>
                 </h3>
                 <div className="meta">
-                  Pluggable transformer for low-code platforms. AST-level
-                  optimizations and a WASM runtime that pre-warms in 8 ms. Open
-                  source, used in production by three Series B startups.
-                  <span className="outcome">8.2k stars &middot; MIT</span>
+                  {t("work.p3meta")}
+                  <span className="outcome">{t("work.p3outcome")}</span>
                 </div>
               </div>
               <div className="preview" aria-hidden="true">
@@ -849,49 +842,43 @@ export default async function Home() {
                 <span>AST</span>
                 <span>Bun</span>
               </div>
-            </a>
+            </Link>
           </div>
         </section>
 
         {/* SKILLS */}
         <section id="skills">
           <div className="head reveal">
-            <span className="eyebrow">04 &mdash; Toolkit</span>
-            <h2 className="display">
-              The <span className="italic">constellation</span>.
-            </h2>
+            <span className="eyebrow">{t("skills.eyebrow")}</span>
+            <h2 className="display">{t.rich("skills.title", rich)}</h2>
           </div>
           <div className="grid">
             <div className="copy reveal">
-              <p>
-                Each node is a tool I reach for without thinking. Connections
-                mark the combinations I actually ship in production &mdash; not
-                the r&eacute;sum&eacute; kind.
-              </p>
+              <p>{t("skills.para")}</p>
               <div className="cats">
                 <div data-cat="Languages">
-                  <div className="k">Languages</div>
+                  <div className="k">{t("skills.catLanguages")}</div>
                   <div className="v">
                     TypeScript &middot; C# &middot; Python &middot; PHP &middot;
                     JavaScript
                   </div>
                 </div>
                 <div data-cat="Backend">
-                  <div className="k">Backend</div>
+                  <div className="k">{t("skills.catBackend")}</div>
                   <div className="v">
                     Node.js &middot; NestJS &middot; Laravel &middot; Django
                     &middot; .NET
                   </div>
                 </div>
                 <div data-cat="Infra">
-                  <div className="k">Infra</div>
+                  <div className="k">{t("skills.catInfra")}</div>
                   <div className="v">
                     Docker &middot; Jenkins &middot; Postgres &middot; Redis
                     &middot; Firebase
                   </div>
                 </div>
                 <div data-cat="Interface">
-                  <div className="k">Interface</div>
+                  <div className="k">{t("skills.catInterface")}</div>
                   <div className="v">
                     React &middot; Next.js &middot; Astro &middot; WebRTC
                     &middot; Motion
@@ -911,7 +898,7 @@ export default async function Home() {
                   <span className="sv-core-cat">toolkit</span>
                   <span className="sv-core-mark">&#8984;</span>
                   <span className="sv-core-count" id="sv-core-count">
-                    19 tools
+                    {t("skills.coreCount")}
                   </span>
                 </div>
                 <div className="sv-nodes" id="sv-nodes" />
@@ -924,37 +911,33 @@ export default async function Home() {
         {/* CONTACT */}
         <section id="contact">
           <span className="eyebrow reveal" style={{ justifyContent: "center" }}>
-            05 &mdash; Contact
+            {t("contact.eyebrow")}
           </span>
           <h2 className="lets reveal">
-            Let&apos;s <span className="talk">talk.</span>
+            {t("contact.lets")} <span className="talk">{t("contact.talk")}</span>
           </h2>
-          <p className="sub reveal">
-            I take on a few projects a quarter &mdash; web platforms, CRM, and
-            ERP work, occasionally a more ambitious interface. Tell me what
-            you&apos;re building.
-          </p>
+          <p className="sub reveal">{t("contact.sub")}</p>
 
           <form className="contact-form reveal" id="contact-form" noValidate>
             <div className="row">
               <div className="field">
-                <label htmlFor="f-name">Your name</label>
+                <label htmlFor="f-name">{tForm("nameLabel")}</label>
                 <input
                   id="f-name"
                   name="name"
                   type="text"
-                  placeholder="full name"
+                  placeholder={tForm("namePlaceholder")}
                   autoComplete="name"
                   required
                 />
               </div>
               <div className="field">
-                <label htmlFor="f-email">Email</label>
+                <label htmlFor="f-email">{tForm("emailLabel")}</label>
                 <input
                   id="f-email"
                   name="email"
                   type="email"
-                  placeholder="you@company.com"
+                  placeholder={tForm("emailPlaceholder")}
                   autoComplete="email"
                   required
                 />
@@ -962,7 +945,7 @@ export default async function Home() {
             </div>
             <div className="row">
               <div className="field">
-                <label htmlFor="f-type-trigger">Project type</label>
+                <label htmlFor="f-type-trigger">{tForm("typeLabel")}</label>
                 <div className="dd" data-name="type" id="f-type">
                   <button
                     type="button"
@@ -971,8 +954,8 @@ export default async function Home() {
                     aria-haspopup="listbox"
                     aria-expanded="false"
                   >
-                    <span className="dd-value" data-placeholder="Pick one">
-                      Pick one
+                    <span className="dd-value" data-placeholder={tForm("typePlaceholder")}>
+                      {tForm("typePlaceholder")}
                     </span>
                     <span className="dd-caret" aria-hidden="true">
                       <svg viewBox="0 0 12 8" width="12" height="8">
@@ -988,25 +971,25 @@ export default async function Home() {
                   <ul className="dd-menu" role="listbox">
                     <li data-val="website" role="option">
                       <span className="dd-icon">&#9634;</span>
-                      <span>Website / web app</span>
+                      <span>{tForm("typeWebsite")}</span>
                     </li>
                     <li data-val="crm" role="option">
                       <span className="dd-icon">&#9651;</span>
-                      <span>CRM platform</span>
+                      <span>{tForm("typeCrm")}</span>
                     </li>
                     <li data-val="erp" role="option">
                       <span className="dd-icon">&#9671;</span>
-                      <span>ERP system</span>
+                      <span>{tForm("typeErp")}</span>
                     </li>
                     <li data-val="other" role="option">
                       <span className="dd-icon">&middot;</span>
-                      <span>Something else</span>
+                      <span>{tForm("typeOther")}</span>
                     </li>
                   </ul>
                 </div>
               </div>
               <div className="field">
-                <label htmlFor="f-budget-trigger">Budget (DA)</label>
+                <label htmlFor="f-budget-trigger">{tForm("budgetLabel")}</label>
                 <div className="dd" data-name="budget" id="f-budget">
                   <button
                     type="button"
@@ -1015,8 +998,8 @@ export default async function Home() {
                     aria-haspopup="listbox"
                     aria-expanded="false"
                   >
-                    <span className="dd-value" data-placeholder="Optional">
-                      Optional
+                    <span className="dd-value" data-placeholder={tForm("budgetPlaceholder")}>
+                      {tForm("budgetPlaceholder")}
                     </span>
                     <span className="dd-caret" aria-hidden="true">
                       <svg viewBox="0 0 12 8" width="12" height="8">
@@ -1032,81 +1015,63 @@ export default async function Home() {
                   <ul className="dd-menu" role="listbox">
                     <li data-val="<100k" role="option">
                       <span className="dd-icon">&middot;</span>
-                      <span>Under 100,000 DA</span>
+                      <span>{tForm("budget1")}</span>
                     </li>
                     <li data-val="100-500k" role="option">
                       <span className="dd-icon">&middot;&middot;</span>
-                      <span>100k &mdash; 500k DA</span>
+                      <span>{tForm("budget2")}</span>
                     </li>
                     <li data-val="500k-1.5m" role="option">
                       <span className="dd-icon">&middot;&middot;&middot;</span>
-                      <span>500k &mdash; 1.5M DA</span>
+                      <span>{tForm("budget3")}</span>
                     </li>
                     <li data-val="1.5m+" role="option">
                       <span className="dd-icon">
                         &middot;&middot;&middot;&middot;
                       </span>
-                      <span>1.5M+ DA</span>
+                      <span>{tForm("budget4")}</span>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
             <div className="field">
-              <label htmlFor="f-msg">Tell me about it</label>
+              <label htmlFor="f-msg">{tForm("messageLabel")}</label>
               <textarea
                 id="f-msg"
                 name="message"
                 rows={4}
-                placeholder="What are you building, and what's the deadline?"
+                placeholder={tForm("messagePlaceholder")}
                 required
               />
             </div>
             <div className="form-status" id="f-status" aria-live="polite" />
             <div className="submit-row">
-              <span className="form-note">
-                Reply within 12h &middot; NDA on request
-              </span>
+              <span className="form-note">{tForm("note")}</span>
               <button className="send-btn" type="submit">
-                <span>Send message</span>
+                <span>{tForm("send")}</span>
                 <span className="arr">&rarr;</span>
               </button>
             </div>
           </form>
 
           <div className="divider-or reveal">
-            <span>Or reach out directly</span>
+            <span>{tContact("divider")}</span>
           </div>
 
           <div className="cta reveal">
             <a className="mail" href="mailto:gouderhaithem@gmail.com">
               gouderhaithem@gmail.com
             </a>
-            <div className="socials">
-              <a
-                href="https://github.com/gouderhaithem"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub &nearr;
-              </a>
-              <a
-                href="https://dz.linkedin.com/in/gouder-h-689164244"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn &nearr;
-              </a>
-              <a href="mailto:gouderhaithem@gmail.com">Email &nearr;</a>
-            </div>
+            <SocialLinks />
           </div>
         </section>
       </main>
 
       <footer>
-        <span>&copy; 2026 &middot; Gouder Haithem</span>
-        <span className="big">Built in a terminal, finished by hand.</span>
-        <span>Algiers &middot; Remote</span>
+        <span>{tFooter("copyright")}</span>
+        <span className="big">{tFooter("big")}</span>
+        <span>{tFooter("location")}</span>
       </footer>
 
       {/* Tweaks panel */}

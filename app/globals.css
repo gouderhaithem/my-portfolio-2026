@@ -1522,6 +1522,19 @@ section {
   position: relative;
   padding-bottom: 4px;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+#contact .socials a svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.75;
+  transition: opacity 0.35s var(--easing);
+}
+#contact .socials a:hover svg {
+  opacity: 1;
 }
 #contact .socials a::after {
   content: "";
@@ -2235,4 +2248,23 @@ footer .big {
   .cb-panel {
     width: calc(100vw - 32px);
   }
+}
+
+/* ---------- Language switcher ---------- */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+}
+.lang-switch a {
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  transition: color 0.3s var(--easing);
+}
+.lang-switch a:hover,
+.lang-switch a.on {
+  color: var(--ink);
 }

@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "title": "Gouder Haithem — Software Engineer in Algeria",
+    "titleTemplate": "%s · Gouder Haithem",
+    "description": "Gouder Haithem is a software engineer in Algiers, Algeria building high-performance websites, custom CRM, and ERP systems. Available for remote and local projects.",
+    "ogDescription": "Gouder Haithem is a software engineer in Algiers, Algeria building high-performance websites, custom CRM, and ERP systems.",
+    "twitterDescription": "Software engineer in Algiers building websites, CRM, and ERP systems.",
+    "ogLocale": "en_DZ"
+  },
+  "nav": {
+    "about": "About",
+    "services": "Services",
+    "projects": "Projects",
+    "blog": "Blog",
+    "skills": "Skills",
+    "contact": "Contact",
+    "status": "Available · Q3 2026",
+    "menu": "Menu"
+  },
+  "footer": {
+    "copyright": "© 2026 · Gouder Haithem",
+    "big": "Built in a terminal, finished by hand.",
+    "location": "Algiers · Remote",
+    "role": "Gouder Haithem · Software Engineer",
+    "startProject": "Start a project"
+  },
+  "home": {
+    "h1": "Gouder Haithem — Software Engineer in Algeria",
+    "hero": {
+      "meta": "Portfolio / vol. iv",
+      "role": "<b>Software Engineer.</b>  Building websites, CRMs, and ERP systems that feel inevitable — considered interfaces on top of solid foundations.",
+      "ctaStart": "Start a project",
+      "ctaServices": "See services",
+      "scroll": "Scroll"
+    },
+    "about": {
+      "eyebrow": "01 — About",
+      "title": "Four years of <i>considered</i><br></br>software work.",
+      "lead1": "I'm a <b>software engineer</b> from Algiers building the products that companies actually run on — marketing sites, internal CRMs, and full ERP platforms.",
+      "lead2": "Most of my work lives in a terminal. The rest tries very hard to look like it doesn't, which is where this site comes in.",
+      "stat1n": "4+",
+      "stat1l": "years building",
+      "stat2n": "Web · CRM · ERP",
+      "stat2l": "focus areas",
+      "stat3n": "Algiers",
+      "stat3l": "based · remote"
+    },
+    "services": {
+      "eyebrow": "02 — Services",
+      "title": "What I <i>build</i>.",
+      "note": "Engagements run 4–12 weeks. Fixed scope, weekly demos, source on day one.",
+      "seeAll": "See all services →"
+    },
+    "work": {
+      "eyebrow": "03 — Selected Work",
+      "title": "Three things I <i>stand behind</i>.",
+      "note": "A fuller dossier on request.",
+      "viewAll": "View all projects →",
+      "p1title": "Halcyon",
+      "p1accent": "— query engine",
+      "p1meta": "Distributed analytical engine for a 4 PB warehouse. Pushes predicates into Parquet at the SSD level; rewrites plans across a 64-node cluster.",
+      "p1outcome": "12× faster · 600+ daily users",
+      "p2title": "Driftboard",
+      "p2accent": "— realtime canvas",
+      "p2meta": "A multiplayer design surface — vector, raster, and 3D primitives sharing one Yjs document. WebGL render pipeline that holds 60 fps with 10k objects on a MacBook Air.",
+      "p2outcome": "Acquired · 2024",
+      "p3title": "Loom",
+      "p3accent": "— compiler toolkit",
+      "p3meta": "Pluggable transformer for low-code platforms. AST-level optimizations and a WASM runtime that pre-warms in 8 ms. Open source, used in production by three Series B startups.",
+      "p3outcome": "8.2k stars · MIT"
+    },
+    "skills": {
+      "eyebrow": "04 — Toolkit",
+      "title": "The <i>constellation</i>.",
+      "para": "Each node is a tool I reach for without thinking. Connections mark the combinations I actually ship in production — not the résumé kind.",
+      "catLanguages": "Languages",
+      "catBackend": "Backend",
+      "catInfra": "Infra",
+      "catInterface": "Interface",
+      "coreCount": "19 tools"
+    },
+    "contact": {
+      "eyebrow": "05 — Contact",
+      "lets": "Let's",
+      "talk": "talk.",
+      "sub": "I take on a few projects a quarter — web platforms, CRM, and ERP work, occasionally a more ambitious interface. Tell me what you're building."
+    }
+  },
+  "contactForm": {
+    "nameLabel": "Your name",
+    "namePlaceholder": "full name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@company.com",
+    "typeLabel": "Project type",
+    "typePlaceholder": "Pick one",
+    "typeWebsite": "Website / web app",
+    "typeCrm": "CRM platform",
+    "typeErp": "ERP system",
+    "typeOther": "Something else",
+    "budgetLabel": "Budget (DA)",
+    "budgetPlaceholder": "Optional",
+    "budget1": "Under 100,000 DA",
+    "budget2": "100k — 500k DA",
+    "budget3": "500k — 1.5M DA",
+    "budget4": "1.5M+ DA",
+    "messageLabel": "Tell me about it",
+    "messagePlaceholder": "What are you building, and what's the deadline?",
+    "note": "Reply within 12h · NDA on request",
+    "send": "Send message",
+    "sending": "Sending…",
+    "sent": "Message sent",
+    "errorEmail": "Please enter a valid email address.",
+    "errorFields": "Please fill in name, project type, and message.",
+    "toastSentTitle": "Message sent",
+    "toastSentSub": "I'll reply within 12 hours · NDA on request",
+    "toastErrorTitle": "Something went wrong",
+    "toastErrorSub": "Please try again or email directly"
+  },
+  "contactPage": {
+    "metaTitle": "Contact",
+    "metaDescription": "Start a project with Gouder Haithem — web platforms, CRM, and ERP work. Reply within 12 hours, NDA on request.",
+    "eyebrow": "Contact",
+    "divider": "Or reach out directly"
+  },
+  "servicesPage": {
+    "metaTitle": "Services",
+    "metaDescription": "Software engineering services by Gouder Haithem — websites and web apps, CRM and ERP platforms, APIs and integrations, performance and SEO audits, and ongoing support.",
+    "eyebrow": "Services",
+    "title": "What I <i>build</i>.",
+    "intro": "From a single marketing site to a full ERP rollout. Engagements run 4–12 weeks with fixed scope, weekly demos, and source on day one.",
+    "howItWorks": "How it works",
+    "step1Title": "Scope",
+    "step1Body": "A short discovery call, then a fixed scope with clear deliverables and a timeline — no open-ended surprises.",
+    "step2Title": "Build",
+    "step2Body": "Weekly demos and source on day one. You see progress every week and own the code from the start.",
+    "step3Title": "Ship",
+    "step3Body": "Deployment, monitoring, and handover docs. The work goes live on infrastructure you control.",
+    "step4Title": "Support",
+    "step4Body": "Optional ongoing care — updates, fixes, and new features with defined response times.",
+    "ctaStart": "Start a project",
+    "ctaWork": "See recent work"
+  },
+  "blogPage": {
+    "metaTitle": "Blog",
+    "metaDescription": "Writing on software engineering by Gouder Haithem — databases, performance, CRM and ERP architecture, and frontend craft.",
+    "eyebrow": "Writing",
+    "title": "Notes on <i>building software</i>.",
+    "intro": "Essays on the engineering and product decisions behind the work — databases, performance, and the systems that quietly run businesses.",
+    "empty": "No posts yet. Check back soon.",
+    "back": "All posts",
+    "keepReading": "Keep reading",
+    "relatedTitle": "Related posts",
+    "notFound": "Post not found"
+  },
+  "projectsPage": {
+    "metaTitle": "Projects",
+    "metaDescription": "Selected software engineering work by Gouder Haithem — query engines, CRM platforms, ERP systems, and high-performance websites.",
+    "eyebrow": "Selected Work",
+    "title": "Projects I <i>stand behind</i>.",
+    "intro": "Case studies across data platforms, CRM and ERP systems, and websites — the kind of considered software built on solid foundations.",
+    "empty": "No projects to show yet. Check back soon.",
+    "back": "All projects",
+    "roleLabel": "Role",
+    "clientLabel": "Client",
+    "timelineLabel": "Timeline",
+    "yearLabel": "Year",
+    "visitLive": "Visit live",
+    "viewCode": "View code",
+    "moreWork": "More work",
+    "relatedTitle": "Related projects",
+    "notFound": "Project not found"
+  },
+  "chat": {
+    "eyebrow": "AI · Assistant",
+    "title": "Ask about <i>Haithem</i>",
+    "greeting": "Hi! I can answer questions about Haithem's work, skills, and services. What would you like to know?",
+    "suggestion1": "What services do you offer?",
+    "suggestion2": "What's your tech stack?",
+    "suggestion3": "How do engagements work?",
+    "suggestion4": "How can I start a project?",
+    "placeholder": "Ask something…",
+    "error": "Something went wrong — please try again.",
+    "inputAria": "Your question",
+    "sendAria": "Send",
+    "openAria": "Open chat",
+    "closeAria": "Close chat",
+    "regionAria": "Chat with Haithem's assistant",
+    "typingAria": "Assistant is typing"
+  },
+  "localeSwitcher": {
+    "label": "Language"
+  }
+}

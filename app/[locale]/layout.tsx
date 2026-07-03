@@ -2,7 +2,12 @@ import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { Instrument_Serif } from 'next/font/google'
-import './globals.css'
+import { notFound } from 'next/navigation'
+import { NextIntlClientProvider, hasLocale } from 'next-intl'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { routing } from '@/i18n/routing'
+import { BASE_URL, localeAlternates, localeUrl } from '@/lib/seo'
+import '../globals.css'
 
 const instrumentSerif = Instrument_Serif({
   weight: '400',
@@ -12,63 +17,78 @@ const instrumentSerif = Instrument_Serif({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://gouderhaithem.com'),
-  title: {
-    default: 'Gouder Haithem — Software Engineer in Algeria',
-    template: '%s · Gouder Haithem',
-  },
-  description:
-    'Gouder Haithem is a software engineer in Algiers, Algeria building high-performance websites, custom CRM, and ERP systems. Available for remote and local projects.',
-  keywords: [
-    'software engineer Algeria',
-    'developer Algeria',
-    'développeur Algérie',
-    'web developer Algiers',
-    'CRM developer Algeria',
-    'ERP developer Algeria',
-    'Next.js developer Algeria',
-    'freelance developer Algiers',
-    'مطور برمجيات الجزائر',
-    'Gouder Haithem',
-  ],
-  authors: [{ name: 'Gouder Haithem', url: 'https://gouderhaithem.com' }],
-  creator: 'Gouder Haithem',
-  alternates: {
-    canonical: 'https://gouderhaithem.com',
-  },
-  openGraph: {
-    type: 'website',
-    locale: 'en_DZ',
-    url: 'https://gouderhaithem.com',
-    siteName: 'Gouder Haithem — Software Engineer',
-    title: 'Gouder Haithem — Software Engineer in Algeria',
-    description:
-      'Gouder Haithem is a software engineer in Algiers, Algeria building high-performance websites, custom CRM, and ERP systems.',
-    images: [
-      {
-        url: '/opengraph-image',
-        width: 1200,
-        height: 630,
-        alt: 'Gouder Haithem — Software Engineer in Algeria',
-      },
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'meta' })
+  const canonical = localeUrl(locale, '/')
+
+  return {
+    metadataBase: new URL(BASE_URL),
+    title: {
+      default: t('title'),
+      template: t('titleTemplate'),
+    },
+    description: t('description'),
+    keywords: [
+      'software engineer Algeria',
+      'developer Algeria',
+      'développeur Algérie',
+      'développeur web Alger',
+      'création site web Algérie',
+      'web developer Algiers',
+      'CRM developer Algeria',
+      'ERP developer Algeria',
+      'Next.js developer Algeria',
+      'freelance developer Algiers',
+      'مطور برمجيات الجزائر',
+      'Gouder Haithem',
     ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Gouder Haithem — Software Engineer in Algeria',
-    description: 'Software engineer in Algiers building websites, CRM, and ERP systems.',
-    images: ['/opengraph-image'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+    authors: [{ name: 'Gouder Haithem', url: BASE_URL }],
+    creator: 'Gouder Haithem',
+    alternates: {
+      canonical,
+      languages: localeAlternates('/'),
+    },
+    openGraph: {
+      type: 'website',
+      locale: t('ogLocale'),
+      url: canonical,
+      siteName: t('title'),
+      title: t('title'),
+      description: t('ogDescription'),
+      images: [
+        {
+          url: '/opengraph-image',
+          width: 1200,
+          height: 630,
+          alt: t('title'),
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('twitterDescription'),
+      images: ['/opengraph-image'],
+    },
+    robots: {
       index: true,
       follow: true,
-      'max-image-preview': 'large',
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+      },
     },
-  },
+  }
 }
 
 const jsonLd = {
@@ -157,10 +177,20 @@ const jsonLd = {
   ],
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  if (!hasLocale(routing.locales, locale)) notFound()
+  setRequestLocale(locale)
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${GeistSans.variable} ${GeistMono.variable} ${instrumentSerif.variable}`}
     >
       <head>
@@ -169,7 +199,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+      </body>
     </html>
   )
 }

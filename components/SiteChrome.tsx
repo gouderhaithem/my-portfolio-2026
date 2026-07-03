@@ -1,20 +1,17 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
+import LocaleSwitcher from './LocaleSwitcher'
 import styles from './subpages.module.css'
 
-interface NavItem {
-  href: string
-  label: string
-}
-
-const NAV_ITEMS: NavItem[] = [
-  { href: '/services', label: 'Services' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/#contact', label: 'Contact' },
-]
+const NAV_ITEMS = [
+  { href: '/services', key: 'services' },
+  { href: '/projects', key: 'projects' },
+  { href: '/blog', key: 'blog' },
+  { href: '/contact', key: 'contact' },
+] as const
 
 /**
  * Page shell for the projects & blog sub-pages: background layers, the glass
@@ -23,6 +20,8 @@ const NAV_ITEMS: NavItem[] = [
  */
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const t = useTranslations('nav')
+  const tFooter = useTranslations('footer')
 
   return (
     <div className={styles.page}>
@@ -38,17 +37,18 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
           {NAV_ITEMS.map((item) => (
             <li key={item.href}>
               <Link href={item.href} onClick={() => setMenuOpen(false)}>
-                {item.label}
+                {t(item.key)}
               </Link>
             </li>
           ))}
         </ul>
         <div className="right">
-          <span className="status">Available &middot; Q3 2026</span>
+          <LocaleSwitcher />
+          <span className="status">{t('status')}</span>
         </div>
         <button
           className={`burger${menuOpen ? ' on' : ''}`}
-          aria-label="Menu"
+          aria-label={t('menu')}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((open) => !open)}
         >
@@ -65,9 +65,9 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
           className={styles.container}
           style={{ paddingTop: 0, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}
         >
-          <span className="eyebrow">Gouder Haithem &middot; Software Engineer</span>
-          <Link href="/#contact" className={styles.back} style={{ margin: 0 }}>
-            <span>Start a project</span>
+          <span className="eyebrow">{tFooter('role')}</span>
+          <Link href="/contact" className={styles.back} style={{ margin: 0 }}>
+            <span>{tFooter('startProject')}</span>
             <span className="arr">&rarr;</span>
           </Link>
         </div>

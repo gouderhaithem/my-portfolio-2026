@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import type { BlogPostSummary } from '@/lib/types'
 import { formatDate } from '@/lib/format'
 import styles from './subpages.module.css'

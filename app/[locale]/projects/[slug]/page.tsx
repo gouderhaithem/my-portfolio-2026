@@ -1,14 +1,16 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import SiteChrome from '@/components/SiteChrome'
 import ContentSections from '@/components/ContentSections'
 import ProjectCard from '@/components/ProjectCard'
+import { Link } from '@/i18n/navigation'
 import { getProjectBySlug, getProjectSlugs, getRelatedProjects } from '@/lib/projects'
+import { localeAlternates, localeUrl } from '@/lib/seo'
 import styles from '@/components/subpages.module.css'
 
 interface PageProps {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string; slug: string }>
 }
 
 export async function generateStaticParams() {
@@ -17,14 +19,20 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params
+  const { locale, slug } = await params
   const project = await getProjectBySlug(slug)
-  if (!project) return { title: 'Project not found' }
+  if (!project) {
+    const t = await getTranslations({ locale, namespace: 'projectsPage' })
+    return { title: t('notFound') }
+  }
 
   return {
     title: project.title,
     description: project.tagline,
-    alternates: { canonical: `https://gouderhaithem.com/projects/${project.slug}` },
+    alternates: {
+      canonical: localeUrl(locale, `/projects/${project.slug}`),
+      languages: localeAlternates(`/projects/${project.slug}`),
+    },
     openGraph: {
       title: `${project.title} — ${project.category}`,
       description: project.tagline,
@@ -35,10 +43,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ProjectDetailPage({ params }: PageProps) {
-  const { slug } = await params
+  const { locale, slug } = await params
+  setRequestLocale(locale)
   const project = await getProjectBySlug(slug)
   if (!project) notFound()
 
+  const t = await getTranslations('projectsPage')
   const related = await getRelatedProjects(slug)
 
   return (
@@ -46,7 +56,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       <div className={`${styles.container} ${styles.containerNarrow}`}>
         <Link href="/projects" className={styles.back}>
           <span className="arr">&larr;</span>
-          <span>All projects</span>
+          <span>{t('back')}</span>
         </Link>
 
         <header className={styles.detailHead}>
@@ -55,16 +65,16 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <p className={styles.detailSummary}>{project.summary}</p>
           <div className={styles.detailMetaRow}>
             <span>
-              <strong>Role</strong> &nbsp;{project.role}
+              <strong>{t('roleLabel')}</strong> &nbsp;{project.role}
             </span>
             <span>
-              <strong>Client</strong> &nbsp;{project.client}
+              <strong>{t('clientLabel')}</strong> &nbsp;{project.client}
             </span>
             <span>
-              <strong>Timeline</strong> &nbsp;{project.timeline}
+              <strong>{t('timelineLabel')}</strong> &nbsp;{project.timeline}
             </span>
             <span>
-              <strong>Year</strong> &nbsp;{project.year}
+              <strong>{t('yearLabel')}</strong> &nbsp;{project.year}
             </span>
           </div>
         </header>
@@ -123,7 +133,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 rel="noopener noreferrer"
                 className="btn-pill primary"
               >
-                <span>Visit live</span>
+                <span>{t('visitLive')}</span>
                 <span className="arr">&rarr;</span>
               </a>
             )}
@@ -134,7 +144,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 rel="noopener noreferrer"
                 className="btn-pill ghost"
               >
-                <span>View code</span>
+                <span>{t('viewCode')}</span>
               </a>
             )}
           </div>
@@ -142,8 +152,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
         {related.length > 0 && (
           <div className={styles.related}>
-            <span className="eyebrow">More work</span>
-            <h2 className={styles.relatedTitle}>Related projects</h2>
+            <span className="eyebrow">{t('moreWork')}</span>
+            <h2 className={styles.relatedTitle}>{t('relatedTitle')}</h2>
             <div className={styles.relatedGrid}>
               {related.map((item) => (
                 <ProjectCard key={item.slug} project={item} />

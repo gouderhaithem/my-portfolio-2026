@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, FormEvent } from 'react'
+import { useTranslations } from 'next-intl'
 
 interface ChatMessage {
   id: string
@@ -11,14 +12,10 @@ interface ChatMessage {
 const MAX_INPUT_LENGTH = 1000
 const HISTORY_LIMIT = 12
 
-const SUGGESTIONS = [
-  'What services do you offer?',
-  "What's your tech stack?",
-  'How do engagements work?',
-  'How can I start a project?',
-]
+const SUGGESTION_KEYS = ['suggestion1', 'suggestion2', 'suggestion3', 'suggestion4'] as const
 
 export default function ChatWidget() {
+  const t = useTranslations('chat')
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
@@ -60,14 +57,14 @@ export default function ChatWidget() {
       })
       const data: { reply?: string; error?: string } = await res.json()
       if (!res.ok || !data.reply) {
-        throw new Error(data.error || 'Something went wrong')
+        throw new Error(data.error || t('error'))
       }
       setMessages([
         ...next,
         { id: crypto.randomUUID(), role: 'model', content: data.reply },
       ])
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong')
+      setError(err instanceof Error && err.message ? err.message : t('error'))
     } finally {
       setLoading(false)
     }
@@ -81,34 +78,31 @@ export default function ChatWidget() {
   return (
     <div className="chatbot" data-open={open || undefined}>
       {open && (
-        <div className="cb-panel" role="region" aria-label="Chat with Haithem's assistant">
+        <div className="cb-panel" role="region" aria-label={t('regionAria')}>
           <div className="cb-head">
             <div className="cb-head-text">
-              <span className="cb-eyebrow">AI &middot; Assistant</span>
+              <span className="cb-eyebrow">{t('eyebrow')}</span>
               <span className="cb-title">
-                Ask about <i>Haithem</i>
+                {t.rich('title', { i: (chunks) => <i>{chunks}</i> })}
               </span>
             </div>
             <button
               className="cb-close"
               onClick={() => setOpen(false)}
-              aria-label="Close chat"
+              aria-label={t('closeAria')}
             >
               &#10005;
             </button>
           </div>
 
           <div className="cb-body" ref={bodyRef}>
-            <div className="cb-msg model">
-              Hi! I can answer questions about Haithem&apos;s work, skills, and
-              services. What would you like to know?
-            </div>
+            <div className="cb-msg model">{t('greeting')}</div>
 
             {messages.length === 0 && (
               <div className="cb-suggestions">
-                {SUGGESTIONS.map((s) => (
-                  <button key={s} onClick={() => void send(s)}>
-                    {s}
+                {SUGGESTION_KEYS.map((key) => (
+                  <button key={key} onClick={() => void send(t(key))}>
+                    {t(key)}
                   </button>
                 ))}
               </div>
@@ -121,7 +115,7 @@ export default function ChatWidget() {
             ))}
 
             {loading && (
-              <div className="cb-msg model cb-typing" aria-label="Assistant is typing">
+              <div className="cb-msg model cb-typing" aria-label={t('typingAria')}>
                 <span />
                 <span />
                 <span />
@@ -137,11 +131,11 @@ export default function ChatWidget() {
               type="text"
               value={input}
               maxLength={MAX_INPUT_LENGTH}
-              placeholder="Ask something…"
+              placeholder={t('placeholder')}
               onChange={(e) => setInput(e.target.value)}
-              aria-label="Your question"
+              aria-label={t('inputAria')}
             />
-            <button type="submit" disabled={loading || !input.trim()} aria-label="Send">
+            <button type="submit" disabled={loading || !input.trim()} aria-label={t('sendAria')}>
               &rarr;
             </button>
           </form>
@@ -151,7 +145,7 @@ export default function ChatWidget() {
       <button
         className="cb-toggle"
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? 'Close chat' : 'Open chat'}
+        aria-label={open ? t('closeAria') : t('openAria')}
         aria-expanded={open}
       >
         {open ? (

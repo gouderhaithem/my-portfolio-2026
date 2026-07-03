@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "title": "Gouder Haithem — Ingénieur logiciel en Algérie",
+    "titleTemplate": "%s · Gouder Haithem",
+    "description": "Gouder Haithem est un ingénieur logiciel à Alger, en Algérie, qui conçoit des sites web performants, des CRM sur mesure et des systèmes ERP. Disponible pour des projets à distance ou sur place.",
+    "ogDescription": "Gouder Haithem est un ingénieur logiciel à Alger, en Algérie, qui conçoit des sites web performants, des CRM sur mesure et des systèmes ERP.",
+    "twitterDescription": "Ingénieur logiciel à Alger — sites web, CRM et systèmes ERP.",
+    "ogLocale": "fr_DZ"
+  },
+  "nav": {
+    "about": "À propos",
+    "services": "Services",
+    "projects": "Projets",
+    "blog": "Blog",
+    "skills": "Compétences",
+    "contact": "Contact",
+    "status": "Disponible · T3 2026",
+    "menu": "Menu"
+  },
+  "footer": {
+    "copyright": "© 2026 · Gouder Haithem",
+    "big": "Construit dans un terminal, fini à la main.",
+    "location": "Alger · À distance",
+    "role": "Gouder Haithem · Ingénieur logiciel",
+    "startProject": "Démarrer un projet"
+  },
+  "home": {
+    "h1": "Gouder Haithem — Ingénieur logiciel en Algérie",
+    "hero": {
+      "meta": "Portfolio / vol. iv",
+      "role": "<b>Ingénieur logiciel.</b>  Je conçois des sites web, des CRM et des systèmes ERP qui semblent évidents — des interfaces soignées sur des fondations solides.",
+      "ctaStart": "Démarrer un projet",
+      "ctaServices": "Voir les services",
+      "scroll": "Défiler"
+    },
+    "about": {
+      "eyebrow": "01 — À propos",
+      "title": "Quatre ans de logiciel<br></br><i>réfléchi</i>.",
+      "lead1": "Je suis <b>ingénieur logiciel</b> à Alger et je construis les produits sur lesquels les entreprises tournent vraiment — sites marketing, CRM internes et plateformes ERP complètes.",
+      "lead2": "L'essentiel de mon travail vit dans un terminal. Le reste fait tout pour ne pas y ressembler — c'est là que ce site entre en jeu.",
+      "stat1n": "4+",
+      "stat1l": "années d'expérience",
+      "stat2n": "Web · CRM · ERP",
+      "stat2l": "domaines de prédilection",
+      "stat3n": "Alger",
+      "stat3l": "sur place · à distance"
+    },
+    "services": {
+      "eyebrow": "02 — Services",
+      "title": "Ce que je <i>construis</i>.",
+      "note": "Les missions durent 4 à 12 semaines. Périmètre fixe, démos hebdomadaires, code source dès le premier jour.",
+      "seeAll": "Voir tous les services →"
+    },
+    "work": {
+      "eyebrow": "03 — Réalisations",
+      "title": "Trois projets que <i>j'assume pleinement</i>.",
+      "note": "Dossier complet sur demande.",
+      "viewAll": "Voir tous les projets →",
+      "p1title": "Halcyon",
+      "p1accent": "— moteur de requêtes",
+      "p1meta": "Moteur analytique distribué pour un entrepôt de 4 Po. Pousse les prédicats dans Parquet au niveau du SSD ; réécrit les plans sur un cluster de 64 nœuds.",
+      "p1outcome": "12× plus rapide · 600+ utilisateurs quotidiens",
+      "p2title": "Driftboard",
+      "p2accent": "— canvas temps réel",
+      "p2meta": "Une surface de design multijoueur — primitives vectorielles, raster et 3D partageant un même document Yjs. Pipeline de rendu WebGL qui tient 60 fps avec 10 000 objets sur un MacBook Air.",
+      "p2outcome": "Racheté · 2024",
+      "p3title": "Loom",
+      "p3accent": "— toolkit compilateur",
+      "p3meta": "Transformateur modulaire pour plateformes low-code. Optimisations au niveau de l'AST et runtime WASM qui se préchauffe en 8 ms. Open source, utilisé en production par trois startups en série B.",
+      "p3outcome": "8,2k étoiles · MIT"
+    },
+    "skills": {
+      "eyebrow": "04 — Boîte à outils",
+      "title": "La <i>constellation</i>.",
+      "para": "Chaque nœud est un outil que j'utilise sans réfléchir. Les connexions marquent les combinaisons que je livre réellement en production — pas celles des CV.",
+      "catLanguages": "Langages",
+      "catBackend": "Backend",
+      "catInfra": "Infra",
+      "catInterface": "Interface",
+      "coreCount": "19 outils"
+    },
+    "contact": {
+      "eyebrow": "05 — Contact",
+      "lets": "Parlons",
+      "talk": "projet.",
+      "sub": "J'accepte quelques projets par trimestre — plateformes web, CRM et ERP, parfois une interface plus ambitieuse. Dites-moi ce que vous construisez."
+    }
+  },
+  "contactForm": {
+    "nameLabel": "Votre nom",
+    "namePlaceholder": "nom complet",
+    "emailLabel": "Email",
+    "emailPlaceholder": "vous@entreprise.com",
+    "typeLabel": "Type de projet",
+    "typePlaceholder": "Choisissez",
+    "typeWebsite": "Site / application web",
+    "typeCrm": "Plateforme CRM",
+    "typeErp": "Système ERP",
+    "typeOther": "Autre chose",
+    "budgetLabel": "Budget (DA)",
+    "budgetPlaceholder": "Optionnel",
+    "budget1": "Moins de 100 000 DA",
+    "budget2": "100k — 500k DA",
+    "budget3": "500k — 1,5M DA",
+    "budget4": "1,5M+ DA",
+    "messageLabel": "Parlez-moi de votre projet",
+    "messagePlaceholder": "Que construisez-vous, et pour quelle échéance ?",
+    "note": "Réponse sous 12h · NDA sur demande",
+    "send": "Envoyer le message",
+    "sending": "Envoi…",
+    "sent": "Message envoyé",
+    "errorEmail": "Veuillez saisir une adresse email valide.",
+    "errorFields": "Veuillez renseigner le nom, le type de projet et le message.",
+    "toastSentTitle": "Message envoyé",
+    "toastSentSub": "Je réponds sous 12 heures · NDA sur demande",
+    "toastErrorTitle": "Une erreur est survenue",
+    "toastErrorSub": "Réessayez ou écrivez-moi directement"
+  },
+  "contactPage": {
+    "metaTitle": "Contact",
+    "metaDescription": "Démarrez un projet avec Gouder Haithem — plateformes web, CRM et ERP. Réponse sous 12 heures, NDA sur demande.",
+    "eyebrow": "Contact",
+    "divider": "Ou contactez-moi directement"
+  },
+  "servicesPage": {
+    "metaTitle": "Services",
+    "metaDescription": "Services d'ingénierie logicielle par Gouder Haithem — sites et applications web, plateformes CRM et ERP, API et intégrations, audits de performance et SEO, et suivi continu.",
+    "eyebrow": "Services",
+    "title": "Ce que je <i>construis</i>.",
+    "intro": "D'un simple site vitrine au déploiement d'un ERP complet. Les missions durent 4 à 12 semaines, à périmètre fixe, avec démos hebdomadaires et code source dès le premier jour.",
+    "howItWorks": "Comment ça se passe",
+    "step1Title": "Cadrage",
+    "step1Body": "Un court appel de découverte, puis un périmètre fixe avec des livrables clairs et un calendrier — pas de surprises en cours de route.",
+    "step2Title": "Développement",
+    "step2Body": "Des démos chaque semaine et le code source dès le premier jour. Vous voyez le projet avancer et le code vous appartient dès le départ.",
+    "step3Title": "Mise en ligne",
+    "step3Body": "Déploiement, supervision et documentation de passation. Le projet part en production sur une infrastructure que vous contrôlez.",
+    "step4Title": "Suivi",
+    "step4Body": "Un accompagnement optionnel — mises à jour, correctifs et nouvelles fonctionnalités avec des délais de réponse définis.",
+    "ctaStart": "Démarrer un projet",
+    "ctaWork": "Voir mes réalisations"
+  },
+  "blogPage": {
+    "metaTitle": "Blog",
+    "metaDescription": "Écrits sur l'ingénierie logicielle par Gouder Haithem — bases de données, performance, architecture CRM et ERP, et artisanat frontend.",
+    "eyebrow": "Écrits",
+    "title": "Notes sur <i>la fabrique du logiciel</i>.",
+    "intro": "Des essais sur les décisions d'ingénierie et de produit derrière mes projets — bases de données, performance, et les systèmes qui font tourner les entreprises en coulisses.",
+    "empty": "Pas encore d'articles. Revenez bientôt.",
+    "back": "Tous les articles",
+    "keepReading": "À lire ensuite",
+    "relatedTitle": "Articles similaires",
+    "notFound": "Article introuvable"
+  },
+  "projectsPage": {
+    "metaTitle": "Projets",
+    "metaDescription": "Réalisations d'ingénierie logicielle de Gouder Haithem — moteurs de requêtes, plateformes CRM, systèmes ERP et sites web performants.",
+    "eyebrow": "Réalisations",
+    "title": "Des projets que <i>j'assume</i>.",
+    "intro": "Études de cas — plateformes de données, systèmes CRM et ERP, sites web : du logiciel réfléchi, construit sur des fondations solides.",
+    "empty": "Pas encore de projets à montrer. Revenez bientôt.",
+    "back": "Tous les projets",
+    "roleLabel": "Rôle",
+    "clientLabel": "Client",
+    "timelineLabel": "Durée",
+    "yearLabel": "Année",
+    "visitLive": "Voir en ligne",
+    "viewCode": "Voir le code",
+    "moreWork": "Autres réalisations",
+    "relatedTitle": "Projets similaires",
+    "notFound": "Projet introuvable"
+  },
+  "chat": {
+    "eyebrow": "IA · Assistant",
+    "title": "Découvrez <i>Haithem</i>",
+    "greeting": "Bonjour ! Je peux répondre à vos questions sur le travail, les compétences et les services de Haithem. Que souhaitez-vous savoir ?",
+    "suggestion1": "Quels services proposez-vous ?",
+    "suggestion2": "Quelle est votre stack technique ?",
+    "suggestion3": "Comment se déroulent les missions ?",
+    "suggestion4": "Comment démarrer un projet ?",
+    "placeholder": "Posez une question…",
+    "error": "Une erreur est survenue — veuillez réessayer.",
+    "inputAria": "Votre question",
+    "sendAria": "Envoyer",
+    "openAria": "Ouvrir le chat",
+    "closeAria": "Fermer le chat",
+    "regionAria": "Discuter avec l'assistant de Haithem",
+    "typingAria": "L'assistant écrit"
+  },
+  "localeSwitcher": {
+    "label": "Langue"
+  }
+}
